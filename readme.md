@@ -48,9 +48,9 @@ pytest tests/
 ````
 
 ## 📊 Скриншоты Allure
-| Overview Dashboard       | Test Suite Structure     |
-|:------------------------:|:------------------------:|
-| <img src="Allure-Report.png" width="400"> | <img src="Allure-Report-08-26.png" width="400"> |
+|                   Overview Dashboard                    | Test Suite Structure     |
+|:-------------------------------------------------------:|:------------------------:|
+| <img src="./screenshots/Allure-Report-08-26-2025_12_08_PM.png" width="400"> | <img src="./screenshots/Allure-Report-08-26-2025_12_11_PM.png" width="400"> |
 
 ## 🧰 Используемые технологии
 
