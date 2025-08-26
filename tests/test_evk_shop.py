@@ -1,4 +1,4 @@
-import pytest
+import allure
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
@@ -8,6 +8,7 @@ from pages.checkout_page import CheckoutPage
 from pages.item_page import ItemPage
 from pages.main_page import MainPage
 
+@allure.description("Test client path")
 def test_client_path(set_up):
     options = webdriver.ChromeOptions()
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
@@ -28,3 +29,5 @@ def test_client_path(set_up):
 
     ch_p = CheckoutPage(driver)
     ch_p.confirm_purchase()
+
+    driver.quit()

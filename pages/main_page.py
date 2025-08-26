@@ -1,8 +1,9 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
-
+import allure
 from base.base_class import Base
+from utils.logger import Logger
 
 
 class MainPage(Base):
@@ -51,10 +52,13 @@ class MainPage(Base):
 
     #Methods
     def start(self):
-        self.driver.get(self.url)
-        self.driver.maximize_window()
-        self.get_current_url()
-        self.click_subscribe_window()
-        self.click_jivo_chat()
-        self.click_catalog_button()
-        self.assert_word(self.get_main_word(), "КАТАЛОГ")
+        with allure.step("Start"):
+            Logger.add_start_step(method='start')
+            self.driver.get(self.url)
+            self.driver.maximize_window()
+            self.get_current_url()
+            self.click_subscribe_window()
+            self.click_jivo_chat()
+            self.click_catalog_button()
+            self.assert_word(self.get_main_word(), "КАТАЛОГ")
+            Logger.add_end_step(url=self.driver.current_url,method='start')

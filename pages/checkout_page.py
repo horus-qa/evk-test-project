@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
@@ -5,6 +6,7 @@ from selenium.webdriver.common.keys import Keys
 from faker import Faker
 
 from base.base_class import Base
+from utils.logger import Logger
 
 
 class CheckoutPage(Base):
@@ -129,34 +131,38 @@ class CheckoutPage(Base):
 
     #Method
     def confirm_purchase(self):
-        self.get_current_url()
+        with allure.step("Confirm Purchase"):
+            Logger.add_start_step(method='confirm_purchase')
+            self.get_current_url()
 
-        # Сгенерировать фейковые данные
-        first_name = self.fake.first_name()
-        last_name = self.fake.last_name()
-        phone = self.fake.numerify('9#########')
-        email = self.fake.email()
-        comment = "Тестовый заказ"
+            # Сгенерировать фейковые данные
+            first_name = self.fake.first_name()
+            last_name = self.fake.last_name()
+            phone = self.fake.numerify('9#########')
+            email = self.fake.email()
+            comment = "Тестовый заказ"
 
-        print(f"[Test Data] {first_name} {last_name}, {phone}, {email}")
+            print(f"[Test Data] {first_name} {last_name}, {phone}, {email}")
 
-        # Заполнение формы
-        self.click_address_field()
-        self.clear_address_field()
-        self.input_address_value()
-        self.click_address_confirm()
+            # Заполнение формы
+            self.click_address_field()
+            self.clear_address_field()
+            self.input_address_value()
+            self.click_address_confirm()
 
-        self.input_first_name(first_name)
-        self.input_last_name(last_name)
-        self.input_phone(phone)
-        self.input_email(email)
-        self.input_comment(comment)
+            self.input_first_name(first_name)
+            self.input_last_name(last_name)
+            self.input_phone(phone)
+            self.input_email(email)
+            self.input_comment(comment)
 
-        self.click_package_checkbox()
-        self.check_total_price_by_elements(
-            product_element=self.get_product_price_element(),
-            delivery_element=self.get_delivery_price_element(),
-            discount_element=self.get_discount_price_element(),
-            total_element=self.get_total_price_element()
-        )
-        # self.click_confirm_button()
+            self.click_package_checkbox()
+            self.check_total_price_by_elements(
+                product_element=self.get_product_price_element(),
+                delivery_element=self.get_delivery_price_element(),
+                discount_element=self.get_discount_price_element(),
+                total_element=self.get_total_price_element()
+            )
+            # self.click_confirm_button()
+            Logger.add_end_step(url=self.driver.current_url, method='confirm_purchase')
+

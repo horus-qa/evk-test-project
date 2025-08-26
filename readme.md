@@ -47,7 +47,12 @@ pip install -r requirements.txt
 pytest tests/
 ````
 
-🧰 Используемые технологии
+## 📊 Скриншоты Allure
+| Overview Dashboard       | Test Suite Structure     |
+|:------------------------:|:------------------------:|
+| <img src="Allure-Report.png" width="400"> | <img src="Allure-Report-08-26.png" width="400"> |
+
+## 🧰 Используемые технологии
 
 * Python
 * Selenium WebDriver

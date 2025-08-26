@@ -1,8 +1,11 @@
+import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
 from base.base_class import Base
+from utils.logger import Logger
+
 
 class CatalogPage(Base):
     def __init__(self, driver):
@@ -86,18 +89,21 @@ class CatalogPage(Base):
 
 
     def select_filter_options(self):
-        # Предварительная проверка URL
-        expected_url = self.get_filter_url()
-        print(f"Expected URL: {expected_url}")
+        with allure.step("Select Filter Options"):
+            Logger.add_start_step(method='select_filter_options')
+            # Предварительная проверка URL
+            expected_url = self.get_filter_url()
+            print(f"Ожидаемый URL: {expected_url}")
 
-        self.get_current_url()
-        self.click_parent_women_category()
-        self.click_women_shirts()
-        self.click_filter_button()
-        self.click_size_checkbox()
-        self.click_height_checkbox()
-        self.click_color_checkbox()
-        self.click_search_button()
-        self.wait.until(EC.url_contains("attributes")) # Ждем применения фильтров
-        self.assert_url(expected_url)
+            self.get_current_url()
+            self.click_parent_women_category()
+            self.click_women_shirts()
+            self.click_filter_button()
+            self.click_size_checkbox()
+            self.click_height_checkbox()
+            self.click_color_checkbox()
+            self.click_search_button()
+            self.wait.until(EC.url_contains("attributes")) # Ждем применения фильтров
+            self.assert_url(expected_url)
+            Logger.add_end_step(url=self.driver.current_url, method='select_filter_options')
 

@@ -1,8 +1,11 @@
+import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
 from base.base_class import Base
+from utils.logger import Logger
+
 
 class ItemPage(Base):
     def __init__(self, driver):
@@ -81,17 +84,19 @@ class ItemPage(Base):
 
     #Methods
     def select_product(self):
+        with allure.step("Select Product"):
+            Logger.add_start_step(method='select_product')
+            self.get_current_url()
+            self.click_product_1()
+            self.click_product_filter_height()
+            self.click_product_filter_size()
+            self.click_cart_button()
+            self.click_checkout_button()
+            self.assert_word(self.get_page_name(), "ОФОРМЛЕНИЕ ЗАКАЗА")
+            name = self.get_item_name().text.strip()
+            size = self.get_item_size().text.split(":")[1].strip()
+            height = self.get_item_height().text.split(":")[1].strip()
+            price = self.get_item_price().text.strip().replace("\n", "").replace(" ", " ").replace("руб.", "руб.").strip()
 
-        self.get_current_url()
-        self.click_product_1()
-        self.click_product_filter_height()
-        self.click_product_filter_size()
-        self.click_cart_button()
-        self.click_checkout_button()
-        self.assert_word(self.get_page_name(), "ОФОРМЛЕНИЕ ЗАКАЗА")
-        name = self.get_item_name().text.strip()
-        size = self.get_item_size().text.split(":")[1].strip()
-        height = self.get_item_height().text.split(":")[1].strip()
-        price = self.get_item_price().text.strip().replace("\n", "").replace(" ", " ").replace("руб.", "руб.").strip()
-
-        self.assert_item(name=name, size=size, height=height, price=price)
+            self.assert_item(name=name, size=size, height=height, price=price)
+            Logger.add_end_step(url=self.driver.current_url, method='select_product')
